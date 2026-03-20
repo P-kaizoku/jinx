@@ -76,6 +76,7 @@ cat > config.json << EOF
   "invoke": "jinx"
 }
 EOF
+
 # write empty tasks
 echo '{"tasks": []}' >tasks.json
 
