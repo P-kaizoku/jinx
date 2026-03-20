@@ -34,15 +34,33 @@ else
     echo "→ global command not found, skipping"
 fi
 
+# detect model from config
+if [ -f "config.json" ]; then
+    MODEL=$(python3 -c "import json; print(json.load(open('config.json'))['model'])" 2>/dev/null || echo "phi4-mini")
+else
+    MODEL="phi4-mini"
+fi
+
+echo "→ detected model: $MODEL"
+
 # ask about ollama model
-read -p "  remove phi4-mini model? frees ~2.5GB [y/N]: " REMOVE_MODEL
+read -p "  remove $MODEL model? frees disk space [y/N]: " REMOVE_MODEL
 if [[ "$REMOVE_MODEL" == "y" || "$REMOVE_MODEL" == "Y" ]]; then
     if command -v ollama &> /dev/null; then
-        echo "→ removing phi4-mini..."
-        ollama rm phi4-mini
+        echo "→ removing $MODEL..."
+        ollama rm $MODEL
     else
         echo "→ ollama not found, skipping"
     fi
+fi
+
+# ask about ollama itself
+read -p "  remove ollama entirely? [y/N]: " REMOVE_OLLAMA
+if [[ "$REMOVE_OLLAMA" == "y" || "$REMOVE_OLLAMA" == "Y" ]]; then
+    echo "→ removing ollama..."
+    sudo rm -f /usr/local/bin/ollama
+    rm -rf ~/.ollama
+    echo "→ ollama removed"
 fi
 
 # ask about project files

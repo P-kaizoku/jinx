@@ -34,9 +34,25 @@ else
   echo "→ uv already installed"
 fi
 
-# pull model
-echo "→ pulling phi4-mini (this may take a few minutes)..."
-ollama pull phi4-mini
+# model selection
+echo ""
+echo "  available models:"
+echo "  [1] phi4-mini    — recommended (smart, 2.5GB)"
+echo "  [2] llama3.2:3b  — faster, lighter (2GB)"
+echo "  [3] mistral      — great balance (4GB)"
+echo "  [4] gemma3:1b    — ultralight, less accurate (800MB)"
+echo ""
+read -p "  choose model [1]: " MODEL_CHOICE
+
+case $MODEL_CHOICE in
+    2) MODEL="llama3.2:3b" ;;
+    3) MODEL="mistral" ;;
+    4) MODEL="gemma3:1b" ;;
+    *) MODEL="phi4-mini" ;;
+esac
+
+echo "→ pulling $MODEL..."
+ollama pull $MODEL
 
 # install dependencies
 echo "→ installing python dependencies..."
@@ -52,15 +68,14 @@ read -p "  editor [code]: " EDITOR
 EDITOR=${EDITOR:-"code"}
 
 # write config
-cat >config.json <<EOF
+cat > config.json << EOF
 {
   "projects_dir": "$PROJECTS_DIR",
   "editor": "$EDITOR",
-  "model": "phi4-mini",
+  "model": "$MODEL",
   "invoke": "jinx"
 }
 EOF
-
 # write empty tasks
 echo '{"tasks": []}' >tasks.json
 
