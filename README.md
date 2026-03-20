@@ -147,6 +147,12 @@ No API keys. No usage costs. No data leaving your machine. Your projects, tasks,
 - [uv](https://astral.sh/uv)
 - ~2.5GB disk space for phi4-mini
 
+## Uninstall
+
+```bash
+./uninstall.sh
+```
+
 ---
 
 Built by [P-kaizoku](https://github.com/P-kaizoku)
