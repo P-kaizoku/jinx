@@ -4,10 +4,20 @@
 
 ## One-liner install
 
+### macOS / Linux
+
 ```bash
 git clone https://github.com/P-kaizoku/jinx.git
 cd jinx
 ./install.sh
+```
+
+### Windows (PowerShell)
+
+```powershell
+git clone https://github.com/P-kaizoku/jinx.git
+cd jinx
+powershell -ExecutionPolicy Bypass -File .\install.ps1
 ```
 
 That's it. Then type `jinx` anywhere in your terminal.
@@ -149,9 +159,15 @@ No API keys. No usage costs. No data leaving your machine. Your projects, tasks,
 
 ## Uninstall
 
+### macOS / Linux
+
 ```bash
 ./uninstall.sh
 ```
+
+### Windows
+
+Delete `%USERPROFILE%\bin\jinx.cmd` to remove the global launcher.
 
 ---
 
